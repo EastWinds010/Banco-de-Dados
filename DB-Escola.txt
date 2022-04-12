@@ -1,0 +1,54 @@
+create database aluno1204
+create table alun1204.endereco
+(
+idendereco INT NOT NULL,
+logradouro VARCHAR(45) NOT NULL,
+numero INT  NOT NULL,
+complemento VARCHAR(45),
+bairro VARCHAR(45) NOT NULL,
+cidade VARCHAR(45) NOT NULL,
+estado VARCHAR(45) NOT NULL,
+PRIMARY KEY (idendereco)
+);
+CREATE TABLE alun1204.aluno
+(
+matricula VARCHAR(45) NOT NULL,
+nome VARCHAR(100) NOT NULL,
+cpf VARCHAR(45) NOT NULL,
+email VARCHAR(45) NOT NULL,
+Endereco_idEndereco INT NOT NULL,
+PRIMARY KEY (matricula),
+CONSTRAINT fk_Aluno_endereco FOREIGN KEY(Endereco_idEndereco) REFERENCES endereco (idEndereco)
+);
+CREATE TABLE alun1204.turma
+(
+idTurma INT,
+nomeDaTurma VARCHAR(45),
+PRIMARY KEY(idTurma)
+);
+
+CREATE TABLE alun1204.professor
+(
+cpf INT NOT NULL,
+nome VARCHAR(45) NOT NULL,
+email VARCHAR(45) NOT NULL,
+PRIMARY KEY(cpf)
+);
+
+CREATE TABLE alun1204.matricula
+(
+Aluno_matricula VARCHAR(45),
+Turma_idTurma INT,
+PRIMARY KEY(Aluno_matricula,Turma_idTurma),
+FOREIGN KEY(Aluno_matricula) REFERENCES aluno(matricula),
+FOREIGN KEY(Turma_idTurma) REFERENCES turma(idTurma)
+);
+CREATE TABLE alun1204.orienta
+(
+Turma_idTurma INT NOT NULL,
+Professor_cpf INT NOT NULL,
+PRIMARY KEY (Turma_idTurma,Professor_cpf),
+FOREIGN KEY(Turma_idTurma) REFERENCES turma(idTurma),
+FOREIGN KEY(Professor_cpf) REFERENCES professor(cpf)
+)
+
